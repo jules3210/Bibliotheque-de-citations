@@ -26,6 +26,18 @@ class Citation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $source = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $annee_citation = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $contexte = null;
+
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $lieu = null;
+
+    #[ORM\Column(length: 150)]
+    private ?string $type_citation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +87,54 @@ class Citation
     public function setSource(?string $source): static
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    public function getAnneeCitation(): ?int
+    {
+        return $this->annee_citation;
+    }
+
+    public function setAnneeCitation(?int $annee_citation): static
+    {
+        $this->annee_citation = $annee_citation;
+
+        return $this;
+    }
+
+    public function getContexte(): ?string
+    {
+        return $this->contexte;
+    }
+
+    public function setContexte(?string $contexte): static
+    {
+        $this->contexte = $contexte;
+
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?string $lieu): static
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getTypeCitation(): ?string
+    {
+        return $this->type_citation;
+    }
+
+    public function setTypeCitation(string $type_citation): static
+    {
+        $this->type_citation = $type_citation;
 
         return $this;
     }

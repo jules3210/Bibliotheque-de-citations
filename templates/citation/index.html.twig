@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenu dans la Bibliothèque de citations de Need For School{% endblock %}
+{% block title %}Bibliothèque de citations{% endblock %}
 
 {% block body %}
 <style>
@@ -10,9 +10,10 @@
 <div class="citation-list">
     {% for citation in citations %}
         <div class="citation-item">
-            <h2>{{ citation.auteur }}</h2>
-            <p>{{ citation.texte }}</p>
-{#            <a href="{{ path('app_citations_show', { id : citation.id } ) }}">Voir plus d'informations</a>#}
+            <h2>{{ citation.Auteur }}</h2>
+            <p>{{ citation.Texte }}</p>
+            <p>{{ citation.AnneeCitation }}</p>
+            <a href="{{ path('app_citations_show', { id : citation.id } ) }}">Voir plus d'informations</a>
         </div>
     {% endfor %}
 {% endblock %}

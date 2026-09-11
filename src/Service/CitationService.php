@@ -12,8 +12,13 @@ class CitationService
         $this->citationRepository = $citationRepository;
     }
 
-    public function getAllCitations()
+    public function getAllCitations(): array
     {
         return $this->citationRepository->findAllCitations();
+    }
+
+    public function getCitationById(int $id)
+    {
+        return $this->citationRepository->findOneBy( ["id"=>$id]);
     }
 }
