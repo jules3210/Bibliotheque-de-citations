@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Citation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\CitationService;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\CitationType;
 
 #[Route('/citations', name: 'app_citations_')]
 final class CitationController extends AbstractController
@@ -30,6 +33,38 @@ final class CitationController extends AbstractController
         $citation = $this->citationService->getCitationById($id);
         return $this->render('citation/show.html.twig', [
             'citation' => $citation,
+        ]);
+    }
+
+    #[Route('/add', name: 'add', methods: ['GET', 'POST'])]
+    public function add(Request $request, Citationservice $citationService): Response
+    {
+        $citation = new Citation();
+
+        $form = $this->createForm(
+            CitationType::class,
+            $citation
+        );
+
+        $form->handleRequest($request);
+        $citation->setCreatedAt(new \DateTimeImmutable());
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $citationService->add($citation);
+
+            $this->addFlash(
+                'success',
+                'La citation a été ajouté avec succès.'
+            );
+
+            return $this->redirectToRoute(
+                'app_citations_show',
+                ['id' => $citation->getId()]
+            );
+        }
+
+        return $this->render('citation/add.html.twig', [
+            'form' => $form,
         ]);
     }
 }
