@@ -32,4 +32,9 @@ class CitationService
         $this->entityManager->persist($citation);
         $this->entityManager->flush();
     }
+
+    public function delete(int $id): void
+    {
+        $this->citationRepository->deleteOnById($id);
+    }
 }

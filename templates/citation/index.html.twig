@@ -3,10 +3,10 @@
 {% block title %}Bibliothèque de citations{% endblock %}
 
 {% block body %}
-<style>
-    .citation-list { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-</style>
 
+<div>
+    <a href="{{ path('app_citations_add',) }}">Ajouter une citation</a>
+</div>
 <div class="citation-list">
     {% for citation in citations %}
         <div class="citation-item">
@@ -16,4 +16,4 @@
             <a href="{{ path('app_citations_show', { id : citation.id } ) }}">Voir plus d'informations</a>
         </div>
     {% endfor %}
-{% endblock %}
+    {% endblock %}

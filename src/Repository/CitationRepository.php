@@ -25,6 +25,16 @@ class CitationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function deleteOnById($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->delete()
+            ->where('c.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Citation[] Returns an array of Citation objects
     //     */
