@@ -51,7 +51,3 @@ Ou avec le serveur PHP intégré :
 ```bash
 php -S localhost:8000 -t public
 ```
-
-## Auteur
-
-Nathan
