@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenu dans la Bibliothèque de citations de Need For School{% endblock %}
+
+{% block body %}
+<style>
+    .citation-list { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+</style>
+
+<div class="citation-list">
+    {% for citation in citations %}
+        <div class="citation-item">
+            <h2>{{ citation.auteur }}</h2>
+            <p>{{ citation.texte }}</p>
+{#            <a href="{{ path('app_citations_show', { id : citation.id } ) }}">Voir plus d'informations</a>#}
+        </div>
+    {% endfor %}
+{% endblock %}
