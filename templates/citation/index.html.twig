@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bibliothèque de citations{% endblock %}
+
+{% block body %}
+
+    <div>
+        <a href="{{ path('app_citations_add',) }}">Ajouter une citation</a>
+    </div>
+    <div class="citation-list">
+    {% for citation in citations %}
+        <div class="citation-item">
+            <h2>{{ citation.Auteur }}</h2>
+            <p>{{ citation.Texte }}</p>
+            <p>{{ citation.AnneeCitation }}</p>
+            <a href="{{ path('app_citations_show', { id : citation.id } ) }}">Voir plus d'informations</a>
+        </div>
+    {% endfor %}
+{% endblock %}

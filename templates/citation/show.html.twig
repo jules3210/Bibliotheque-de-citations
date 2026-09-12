@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="citation-item">
+
+    <h2>{{ citation.Auteur }}</h2>
+    <p>{{ citation.Texte }}</p>
+    <p>Prononcé ou écrit à {{ citation.Lieu }} en {{ citation.AnneeCitation }}</p>
+    <p>Le contexte: {{ citation.Contexte }}</p>
+    <p>type de citation: {{ citation.TypeCitation }}</p>
+    <p>source: {{ citation.Source }}</p>
+    <p>Ajouté le {{ citation.CreatedAt|date("m/d/Y") }}</p>
+
+    <a href="{{ path('app_citations_edit', { id : citation.id } ) }}">Modifier la citation</a>
+
+    <form action="{{ path('app_citations_del', { id: citation.id }) }}" method="post"
+    onsubmit="return confirm('Voulez-vous vraiment supprimer cette citation ?');">
+        <button type="submit">Supprimer</button>
+    </form>
+</div>
+{% endblock%}
