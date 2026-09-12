@@ -9,15 +9,18 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Service\CitationService;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\CitationType;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/citations', name: 'app_citations_')]
 final class CitationController extends AbstractController
 {
     private Citationservice $citationService;
+
     public function __construct(CitationService $citationService)
     {
         $this->citationService = $citationService;
     }
+
     #[Route('/list', name: 'list', methods: ['GET'])]
     public function index(): Response
     {
@@ -37,10 +40,9 @@ final class CitationController extends AbstractController
     }
 
     #[Route('/add', name: 'add', methods: ['GET', 'POST'])]
-    public function add(Request $request, Citationservice $citationService): Response
+    public function add(Request $request, Citationservice $citationService, ValidatorInterface $validator): Response
     {
         $citation = new Citation();
-
         $form = $this->createForm(
             CitationType::class,
             $citation,
@@ -48,7 +50,17 @@ final class CitationController extends AbstractController
 
         $form->handleRequest($request);
         $citation->setCreatedAt(new \DateTimeImmutable());
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $errors = $validator->validate($citation);
+
+            if (count($errors) > 0) {
+
+                $errorsString = (string)$errors;
+
+                return new Response($errorsString);
+            }
 
             $citationService->add($citation);
 
@@ -69,7 +81,7 @@ final class CitationController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Citationservice $citationService, int $id): Response
+    public function edit(Request $request, Citationservice $citationService, int $id, ValidatorInterface $validator): Response
     {
         $citation = $this->citationService->getCitationById($id);
         $form = $this->createForm(
@@ -80,6 +92,14 @@ final class CitationController extends AbstractController
         $form->handleRequest($request);
         $citation->setCreatedAt(new \DateTimeImmutable());
         if ($form->isSubmitted() && $form->isValid()) {
+            $errors = $validator->validate($citation);
+
+            if (count($errors) > 0) {
+
+                $errorsString = (string)$errors;
+
+                return new Response($errorsString);
+            }
 
             $citationService->add($citation);
 

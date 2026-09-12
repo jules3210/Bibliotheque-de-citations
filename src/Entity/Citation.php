@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CitationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CitationRepository::class)]
 class Citation
@@ -15,27 +16,55 @@ class Citation
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $texte = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Votre auteur doit comporter au moins {{ limit }} caractères.',
+        maxMessage: 'Votre auteur ne peut pas dépasser {{ limit }} caractères.',
+    )]
     private ?string $auteur = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'Votre source doit comporter au moins {{ limit }} caractères.',
+        maxMessage: 'Votre source ne peut pas dépasser {{ limit }} caractères.',
+    )]
     private ?string $source = null;
 
     #[ORM\Column(nullable: true)]
+
     private ?int $annee_citation = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $contexte = null;
 
     #[ORM\Column(length: 150, nullable: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 150,
+        minMessage: 'Votre lieu doit comporter au moins {{ limit }} caractères.',
+        maxMessage: 'Votre lieu ne peut pas dépasser {{ limit }} caractères.',
+    )]
     private ?string $lieu = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 150,
+        minMessage: 'Votre type de citation doit comporter au moins {{ limit }} caractères.',
+        maxMessage: 'Votre type de citation ne peut pas dépasser {{ limit }} caractères.',
+    )]
     private ?string $type_citation = null;
 
     public function getId(): ?int
