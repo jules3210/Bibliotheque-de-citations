@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Citation;
+use Doctrine\DBAL\Exception\DatabaseDoesNotExist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -25,6 +26,9 @@ final class CitationController extends AbstractController
     public function index(): Response
     {
         $citations = $this->citationService->getAllCitations();
+        if (!$citations) {
+            return $this->render('citation/noCitation.html.twig',);
+        }
         return $this->render('citation/index.html.twig', [
             'citations' => $citations,
         ]);
