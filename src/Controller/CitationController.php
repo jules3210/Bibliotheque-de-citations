@@ -37,7 +37,7 @@ final class CitationController extends AbstractController
     #[Route('/show/{id}', name: 'show', methods: ['GET'])]
     public function show($id): Response
     {
-        $citation = $this->citationService->getCitationById($id);
+        $citation = $this->citationService->getCitation($id);
         return $this->render('citation/show.html.twig', [
             'citation' => $citation,
         ]);

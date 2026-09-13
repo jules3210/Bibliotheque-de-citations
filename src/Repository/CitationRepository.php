@@ -35,6 +35,18 @@ class CitationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function addOneToNbrVues($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->update()
+            ->set('c.nbr_vues', 'c.nbr_vues + 1')
+            ->where('c.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+
+    }
+
     //    /**
     //     * @return Citation[] Returns an array of Citation objects
     //     */

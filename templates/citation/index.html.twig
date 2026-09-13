@@ -13,6 +13,7 @@
             <h2>{{ citation.Auteur }}</h2>
             <p>{{ citation.Texte }}</p>
             <p>{{ citation.AnneeCitation }}</p>
+            <p>Vue {{ citation.NbrVues }} fois</p>
             <a href="{{ path('app_citations_show', { id : citation.id } ) }}">Voir plus d'informations</a>
         </div>
     {% endfor %}

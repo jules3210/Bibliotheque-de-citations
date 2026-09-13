@@ -67,6 +67,9 @@ class Citation
     )]
     private ?string $type_citation = null;
 
+    #[ORM\Column]
+    private ?int $nbr_vues = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -164,6 +167,18 @@ class Citation
     public function setTypeCitation(string $type_citation): static
     {
         $this->type_citation = $type_citation;
+
+        return $this;
+    }
+
+    public function getNbrVues(): ?int
+    {
+        return $this->nbr_vues;
+    }
+
+    public function setNbrVues(int $nbr_vues): static
+    {
+        $this->nbr_vues = $nbr_vues;
 
         return $this;
     }

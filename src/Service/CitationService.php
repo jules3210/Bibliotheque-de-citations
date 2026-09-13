@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class CitationService
 {
     private CitationRepository $citationRepository;
+
     public function __construct(
         CitationRepository $citationRepository,
         private EntityManagerInterface $entityManager)
@@ -22,9 +23,10 @@ class CitationService
         return $this->citationRepository->findAllCitations();
     }
 
-    public function getCitationById(int $id)
+    public function getCitation(int $id)
     {
-        return $this->citationRepository->findOneBy( ["id"=>$id]);
+        $this->citationRepository->addOneToNbrVues($id);
+        return $this->citationRepository->find($id);
     }
 
     public function add(Citation $citation): void
