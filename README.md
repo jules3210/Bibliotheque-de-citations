@@ -1,14 +1,41 @@
 # Bibliothèque de citations
 
-Une application Symfony pour enregistrer, consulter et gérer une collection de citations.
+Une application Symfony pour enregistrer, consulter et gérer une collection de citations. Le projet permet d'ajouter, consulter, modifier et supprimer des citations, tout en gardant une trace de leur popularité grâce à un compteur de vues.
 
 ## Fonctionnalités
 
-- Lister toutes les citations
-- Voir le détail d'une citation
-- Ajouter une nouvelle citation
-- Modifier une citation existante
-- Supprimer une citation
+### Fonctionnalités principales
+
+- **Afficher la bibliothèque** : présenter l'ensemble des citations enregistrées dans une liste claire et lisible
+- **Afficher les informations d'une citation** : texte, auteur, source ou origine si elle est renseignée, date d'ajout et autres informations complémentaires
+- **Ajouter une citation** : formulaire permettant de créer une nouvelle citation
+- **Contrôler les informations saisies** : validation des champs obligatoires avec des messages d'erreur clairs en cas de saisie incorrecte
+- **Consulter une citation** : page dédiée présentant la citation et toutes ses informations
+- **Modifier une citation** : corriger ou mettre à jour une citation existante
+- **Supprimer une citation** : retirer une citation de la bibliothèque, avec demande de confirmation avant suppression définitive
+- **Gérer une bibliothèque vide** : afficher un message adapté lorsqu'aucune citation n'est disponible
+- **Navigation** : permettre de passer facilement entre la liste, l'ajout, la consultation et la modification d'une citation
+
+### Fonctionnalité bonus
+
+- **Compteur de vues** : chaque consultation du détail d'une citation incrémente automatiquement un compteur (`nbr_vues`) directement en base de données. Cette valeur permet de suivre la popularité de chaque citation au fil du temps.
+
+## Types de données
+
+L'entité `Citation` est composée des champs suivants :
+
+| Champ            | Type              | Obligatoire | Description                                              |
+|------------------|-------------------|-------------|------------------------------------------------------------|
+| `id`             | int (auto)        | Oui         | Identifiant unique de la citation                          |
+| `texte`          | text              | Oui         | Le contenu de la citation                                   |
+| `auteur`         | string (50)       | Oui         | L'auteur de la citation (2 à 50 caractères)                |
+| `created_at`     | datetime          | Oui         | Date d'ajout de la citation                                 |
+| `source`         | string (255)      | Non         | Source ou origine de la citation                            |
+| `annee_citation` | int               | Non         | Année à laquelle la citation a été prononcée ou écrite      |
+| `contexte`       | text              | Non         | Contexte dans lequel la citation a été formulée             |
+| `lieu`           | string (150)      | Non         | Lieu associé à la citation (2 à 150 caractères)             |
+| `type_citation`  | string (150)      | Oui         | Type ou catégorie de la citation (2 à 150 caractères)       |
+| `nbr_vues`       | int               | Oui         | Nombre de fois où la citation a été consultée               |
 
 ## Prérequis
 
@@ -44,10 +71,4 @@ php bin/console doctrine:migrations:migrate
 
 ```bash
 symfony serve
-```
-
-Ou avec le serveur PHP intégré :
-
-```bash
-php -S localhost:8000 -t public
 ```
